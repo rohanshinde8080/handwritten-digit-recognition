@@ -1,6 +1,17 @@
 # ✍️ Handwritten Digit Recognition (Deep Learning CNN)
 
-Deep Learning Convolutional Neural Network (CNN) var aadharit Handwritten Digit Recognition project. Ha project Google Colab code la local Windows machine var run honyasathi optimize kela ahe.
+An end-to-end Deep Learning Web Application for real-time **Handwritten Digit Recognition (0–9)** powered by a Convolutional Neural Network (CNN) built with **TensorFlow / Keras**, **OpenCV**, and **Flask**.
+
+---
+
+## 🌟 Features
+
+- ✏️ **Interactive Drawing Canvas**: Draw any digit (0–9) directly in your browser with adjustable brush sizes.
+- 📸 **Real-World Photo Upload**: Upload photographs of handwritten digits on paper. Built-in **Adaptive Gaussian Thresholding** automatically eliminates paper grain, uneven room lighting, and camera shadows.
+- 🎯 **High Accuracy CNN (~99.3% Test Accuracy)**: Custom deep convolutional neural network trained on the MNIST dataset with data normalization and centering.
+- 📊 **Real-Time Probability Breakdown**: Dynamic probability bar charts showing confidence scores across all 10 classes (0 to 9).
+- 🎨 **Modern Glassmorphism UI**: Beautiful dark-mode interface with smooth animations, glow effects, and mobile-friendly touch support.
+- ⚡ **Center-of-Mass Preprocessing**: Automatically aligns handwritten inputs using image moments ($14, 14$) to match MNIST training standards.
 
 ---
 
@@ -9,90 +20,122 @@ Deep Learning Convolutional Neural Network (CNN) var aadharit Handwritten Digit 
 ```
 handwritten_digit/
 │
-├── dataset/                  # Custom dataset folder (images 0_*.jpg etc.)
+├── dataset/                  # Custom dataset directory (optional)
 │   └── README.md
 ├── templates/
-│   └── index.html            # Web app UI template
+│   └── index.html            # Frontend HTML5 template
 ├── static/
-│   ├── style.css             # Dark mode glassmorphism UI styles
-│   └── script.js             # Interactive drawing canvas & API logic
+│   ├── style.css             # Glassmorphism dark mode CSS styling
+│   └── script.js             # Canvas drawing logic & API integrations
 │
-├── train.py                  # Model training script
-├── predict.py                # Command-line image prediction script
-├── app.py                    # Flask Web Application (Canvas + Upload)
-├── requirements.txt          # Python dependencies
-└── README.md                 # Project guide
+├── train.py                  # Model training pipeline (Custom + MNIST fallback)
+├── predict.py                # Command-line image prediction tool
+├── app.py                    # Flask Web Server (REST API endpoints)
+├── model.keras               # Trained Keras CNN model weights
+├── model.h5                  # Legacy HDF5 model format
+├── accuracy_loss_plot.png    # Training accuracy & loss curves
+├── Procfile                  # Production configuration for Cloud hosting
+├── requirements.txt          # Python project dependencies
+├── .python-version           # Cloud Python version definition (3.10.14)
+└── README.md                 # Project documentation
 ```
 
 ---
 
-## ⚡ Quick Start (कसे चालवायचे)
+## 🛠️ Tech Stack
 
-### 1. Requirements Install करा
-Terminal / Command Prompt open kara ani khali dili command run kara:
+- **Backend & AI**: Python 3.10, TensorFlow / Keras, OpenCV (`cv2`), Pillow (PIL), NumPy
+- **Web Framework**: Flask, Gunicorn
+- **Frontend**: HTML5, CSS3 (Modern Glassmorphism), JavaScript (ES6+ Canvas API)
+- **Deployment**: Render.com, Git & GitHub
+
+---
+
+## ⚡ Quick Start Guide
+
+### 1. Clone the Repository & Install Dependencies
 
 ```bash
+git clone https://github.com/rohanshinde8080/handwritten-digit-recognition.git
+cd handwritten-digit-recognition
 pip install -r requirements.txt
 ```
 
 ---
 
-### 2. Model Train करा (`train.py`)
+### 2. Train the Model (`train.py`)
+
+Train a new CNN model using custom images or standard MNIST:
 
 ```bash
 python train.py
 ```
-**Features of `train.py`:**
-- Jar `HANDWRITTEN DIGITS DATASET.zip` file asel tar ti auto-extract hote.
-- Jar custom dataset asel (`0_*.jpg`, `1_*.png`, etc.), tar te images preprocess karel.
-- **Auto Fallback**: Jar custom dataset sapadla nahi, tar automatic standard **MNIST Dataset** load hoto ani training complete hote.
-- Training purna zalyavar `model.keras`, `model.h5`, ani `accuracy_loss_plot.png` save hoto.
+
+**Key Training Features:**
+- Automatically extracts `HANDWRITTEN DIGITS DATASET.zip` if present.
+- Supports custom image directories with `label_*.jpg` format or subdirectories `0/`, `1/`, etc.
+- Automatically falls back to the official **MNIST Dataset** (60,000 samples) if no local dataset is found.
+- Saves the best weights to `model.keras`, `model.h5`, and outputs `accuracy_loss_plot.png`.
 
 ---
 
-### 3. Image Predict करा (`predict.py`)
+### 3. Predict from Command Line (`predict.py`)
 
-Konthya hi ekhadya digit chya image var test karnyasathi:
+Test prediction on any image directly in the terminal:
 
 ```bash
 python predict.py path/to/digit_image.png
 ```
-Or just run `python predict.py` and it will ask you to enter the image path.
+
+Or run interactively:
+```bash
+python predict.py
+```
 
 ---
 
-### 4. Interactive Web App चालवा (`app.py`) 🚀
+### 4. Run the Web Application Locally (`app.py`) 🚀
 
-Mouse/Finger ne digit draw karun live prediction pahnyasathi web app start kara:
+Start the Flask development server:
 
 ```bash
 python app.py
 ```
 
-Nantar browser madhe open kara:
-👉 **[http://127.0.0.1:5000](http://127.0.0.1:5000)**
-
-**Web App Features:**
-- ✏️ **Live Drawing Canvas**: Mouse ne 0 te 9 digit draw kara ani **Predict** dabun result paha.
-- 📁 **Image Upload**: Computer madhun digit chi photo upload karun predict kara.
-- 📊 **Probabilities Breakdown**: 0 te 9 sarv digits che confidence % chart disel.
+Then open your browser and navigate to:
+👉 **`http://127.0.0.1:5000`**
 
 ---
 
-## 🧠 Model Architecture (CNN)
+## 🧠 Convolutional Neural Network (CNN) Architecture
 
-1. **Input**: `(28, 28, 1)` Grayscale Image (Inverted & Normalized)
-2. **Conv2D**: 32 Filters (3x3), ReLU
-3. **MaxPooling2D**: (2x2)
-4. **Conv2D**: 64 Filters (3x3), ReLU
-5. **MaxPooling2D**: (2x2)
-6. **Flatten**
-7. **Dense**: 128 Neurons, ReLU
-8. **Dense (Output)**: 10 Neurons (Digits 0-9), Softmax
+| Layer | Type | Specifications | Output Shape |
+| :--- | :--- | :--- | :--- |
+| **Input** | InputLayer | Grayscale Normalized Matrix | `(28, 28, 1)` |
+| **Layer 1** | Conv2D | 32 Filters, 3×3 Kernel, ReLU | `(26, 26, 32)` |
+| **Layer 2** | MaxPooling2D | 2×2 Pool Size | `(13, 13, 32)` |
+| **Layer 3** | Conv2D | 64 Filters, 3×3 Kernel, ReLU | `(11, 11, 64)` |
+| **Layer 4** | MaxPooling2D | 2×2 Pool Size | `(5, 5, 64)` |
+| **Layer 5** | Flatten | Vector Reshape | `(1600)` |
+| **Layer 6** | Dense | 128 Neurons, ReLU | `(128)` |
+| **Output** | Dense | 10 Neurons (Classes 0–9), Softmax | `(10)` |
+
+- **Loss Function**: `sparse_categorical_crossentropy`
+- **Optimizer**: `Adam`
+- **Validation Accuracy**: **~99.33%**
+
+---
+
+## 🌐 Live Cloud Deployment
+
+This project is configured for one-click deployment on **Render.com**:
+- **Build Command**: `pip install -r requirements.txt`
+- **Start Command**: `gunicorn app:app`
 
 ---
 
 ## 👨‍💻 Author
 
 **Rohan Shinde**
-- Handwritten Digit Recognition AI & Deep Learning Web App
+- Project: *Handwritten Digit Recognition AI & Deep Learning Web App*
+- GitHub: [@rohanshinde8080](https://github.com/rohanshinde8080)

@@ -1,14 +1,28 @@
-# Dataset Directory
+# 📁 Dataset Directory
 
-Tya folder madhe tumhi tumchya custom handwritten digits images thevu shakta.
+You can place your custom handwritten digit image dataset in this folder.
 
-### Format / Naming convention:
-Each image file should be named starting with the digit label and an underscore:
-- `0_img1.jpg`
-- `0_sample2.png`
-- `1_test.png`
-- `7_digit.jpeg`
-- `9_abc.jpg`
+### 📝 Supported Formats & Naming Conventions:
 
-Kiva tumhi `HANDWRITTEN DIGITS DATASET.zip` file main project folder madhe thevli tari `python train.py` script tila automatically extract karel!
-Jar dataset folder khali asel, tari script automatic standard **MNIST Dataset** load karun model train karel.
+#### Format A: Filename with Label Prefix
+Each image file should begin with the target digit label followed by an underscore:
+- `0_sample1.jpg`
+- `0_img2.png`
+- `1_digit.png`
+- `7_test.jpeg`
+- `9_custom.jpg`
+
+#### Format B: Class Subfolders
+Organize images into individual subfolders for each digit:
+```
+dataset/
+├── 0/
+├── 1/
+├── 2/
+...
+└── 9/
+```
+
+### ⚡ Automatic Fallback & Zip Extraction:
+- If you place a `HANDWRITTEN DIGITS DATASET.zip` or `dataset.zip` file in the main project folder, running `python train.py` will automatically extract it.
+- If this dataset directory is empty, `train.py` will automatically load the official **MNIST Dataset** (60,000 training samples) and train the model.
