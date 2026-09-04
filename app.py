@@ -8,8 +8,10 @@ try:
 except (ImportError, ModuleNotFoundError):
     cv2 = None
 from PIL import Image
-from flask import Flask, render_template, request, jsonify
-import tensorflow as tf
+try:
+    import tensorflow as tf  # type: ignore
+except (ImportError, ModuleNotFoundError):
+    tf = None
 
 app = Flask(__name__)
 
@@ -18,7 +20,7 @@ model = None
 
 def get_model():
     global model
-    if model is None:
+    if model is None and tf is not None:
         for path in ["model.keras", "model.h5"]:
             if os.path.exists(path):
                 print(f"Loading model from {path}...")
