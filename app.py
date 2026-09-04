@@ -8,6 +8,7 @@ try:
 except (ImportError, ModuleNotFoundError):
     cv2 = None
 from PIL import Image
+from flask import Flask, render_template, request, jsonify
 try:
     import tensorflow as tf  # type: ignore
 except (ImportError, ModuleNotFoundError):
