@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handwritten Digit Recognition AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="background-glow glow-1"></div>
+    <div class="background-glow glow-2"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="badge">Deep Learning & CNN • By Rohan Shinde</div>
+            <h1>Handwritten Digit Recognizer</h1>
+            <p class="subtitle">Draw a digit (0–9) or upload an image to see the neural network predict in real-time.</p>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="main-grid">
+            <!-- Left: Input Section -->
+            <div class="card input-card">
+                <div class="tabs">
+                    <button class="tab-btn active" id="tab-draw" onclick="switchTab('draw')">
+                        ✏️ Draw Digit
+                    </button>
+                    <button class="tab-btn" id="tab-upload" onclick="switchTab('upload')">
+                        📁 Upload Image
+                    </button>
+                </div>
+
+                <!-- Drawing Tab View -->
+                <div id="draw-view" class="tab-content active">
+                    <div class="canvas-container">
+                        <canvas id="digitCanvas" width="280" height="280"></canvas>
+                        <div class="canvas-hint">Draw a single digit inside the box</div>
+                    </div>
+
+                    <div class="canvas-controls">
+                        <div class="brush-control">
+                            <label for="brushSize">Brush:</label>
+                            <input type="range" id="brushSize" min="12" max="32" value="20">
+                            <span id="brushSizeVal">20px</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary" id="clearBtn" onclick="clearCanvas()">
+                                🗑️ Clear
+                            </button>
+                            <button class="btn btn-primary" id="predictDrawBtn" onclick="predictCanvas()">
+                                ⚡ Predict
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload Tab View -->
+                <div id="upload-view" class="tab-content">
+                    <div class="upload-dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
+                        <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleFileSelect(event)">
+                        <div class="upload-icon">📸</div>
+                        <p class="upload-title">Click to upload or drag & drop</p>
+                        <p class="upload-sub">PNG, JPG, JPEG (Digits 0 to 9)</p>
+                        <div id="previewContainer" class="preview-container" style="display:none;">
+                            <img id="imagePreview" alt="Upload Preview">
+                        </div>
+                    </div>
+
+                    <div class="action-buttons full-width">
+                        <button class="btn btn-primary" id="predictUploadBtn" onclick="predictUpload()" disabled>
+                            ⚡ Predict Uploaded Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Results Section -->
+            <div class="card results-card">
+                <div class="result-header">
+                    <h2>Prediction Result</h2>
+                    <span class="status-badge" id="statusBadge">Ready</span>
+                </div>
+
+                <div class="result-hero" id="resultHero">
+                    <div class="prediction-big" id="predictedDigit">—</div>
+                    <div class="confidence-wrap">
+                        <div class="confidence-label">Confidence Score</div>
+                        <div class="confidence-value" id="confidenceValue">0.00%</div>
+                    </div>
+                </div>
+
+                <!-- Probabilities Breakdown -->
+                <div class="probabilities-section">
+                    <h3>Class Probabilities (0 – 9)</h3>
+                    <div class="prob-grid" id="probGrid">
+                        <!-- Dynamically populated 0 to 9 bars -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Trained using <strong>TensorFlow / Keras CNN</strong> | 28x28 Grayscale Input</p>
+            <p class="author-tag">Created with ❤️ by <strong>Rohan Shinde</strong></p>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
