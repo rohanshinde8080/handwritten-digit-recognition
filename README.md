@@ -1,6 +1,15 @@
 # ✍️ Handwritten Digit Recognition (Deep Learning CNN)
 
+<p align="center">
+  <a href="https://handwritten-digit-recognition.onrender.com"><img src="https://img.shields.io/badge/🚀_Live_Demo-Open_Web_App-46E3B7?style=for-the-badge&logo=render&logoColor=white" alt="Live Demo"></a>
+  <img src="https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/TensorFlow-2.x-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" alt="TensorFlow">
+  <img src="https://img.shields.io/badge/Flask-Web_App-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask">
+</p>
+
 An end-to-end Deep Learning Web Application for real-time **Handwritten Digit Recognition (0–9)** powered by a Convolutional Neural Network (CNN) built with **TensorFlow / Keras**, **OpenCV**, and **Flask**.
+
+> 🌐 **Live Web Application**: [Try the Live Demo on Render](https://handwritten-digit-recognition.onrender.com) *(or check your Render dashboard URL)*
 
 ---
 
